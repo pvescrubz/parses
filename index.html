@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Скины CS:GO</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .card {
+            width: 300px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .card img {
+            width: 100%;
+            border-radius: 5px;
+        }
+        .card h3 {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .card p {
+            font-size: 14px;
+            color: #555;
+        }
+        .price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #ff4500;
+        }
+        .description-container {
+            margin-top: 10px;
+            padding: 10px;
+            background: #fff5e6;
+            border-radius: 5px;
+        }
+        .description-title {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .description-main {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .description-quote {
+            font-style: italic;
+            font-size: 13px;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Скины CS:GO</h1>
+<div class="container" id="skins-container"></div>
+
+<script>
+    async function loadSkins() {
+        try {
+            const response = await fetch('items_complete.json');
+            const skins = await response.json();
+            const container = document.getElementById('skins-container');
+
+            skins.forEach(skin => {
+                const card = document.createElement('div');
+                card.classList.add('card');
+
+                card.innerHTML = `
+                    <img src="images/${skin.image}" alt="${skin.name}">
+                    <h3>${skin.name}</h3>
+                    <p class="price">${skin.price}</p>
+                    <div class="description-container">
+                        <p class="description-title">${skin.description_title}</p>
+                        <p class="description-main">${skin.description_iznos}</p>
+                        <p class="description-quote">${skin.description_text}</p>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        } catch (error) {
+            console.error('Ошибка загрузки JSON:', error);
+        }
+    }
+
+    loadSkins();
+</script>
+
+</body>
+</html>
